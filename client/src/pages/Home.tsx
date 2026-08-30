@@ -40,11 +40,11 @@ export default function Home() {
           <span>SENTINEL<small>// AUDIT SYSTEM</small></span>
         </button>
         <nav className="nav-links" aria-label="Primary navigation">
-          <a href="#sequence">Sequence</a><a href="#signals">Signals</a><a href="#vendors">Vendors</a><a href="/dashboard">Audit room</a>
+          <a href="#sequence">Sequence</a><a href="#signals">Signals</a><a href="#vendors">Vendors</a><a href="/dashboard">Audit room</a><a href="/mission-control">SIH workspace</a>
         </nav>
         <button className="nav-action" onClick={() => setAccessOpen(true)}>Request access <ArrowRight size={14} /></button>
         <button className="mobile-menu" onClick={() => setMenuOpen(!menuOpen)} aria-label="Toggle menu">{menuOpen ? <X size={20} /> : <Menu size={20} />}</button>
-        {menuOpen && <div className="mobile-popover"><button onClick={() => scrollTo("sequence")}>Sequence</button><button onClick={() => scrollTo("signals")}>Signals</button><button onClick={() => scrollTo("vendors")}>Vendors</button></div>}
+        {menuOpen && <div className="mobile-popover"><button onClick={() => scrollTo("sequence")}>Sequence</button><button onClick={() => scrollTo("signals")}>Signals</button><button onClick={() => scrollTo("vendors")}>Vendors</button><a href="/mission-control">SIH workspace</a></div>}
       </header>
 
       <aside className="rail" aria-label="Page sections">

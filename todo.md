@@ -1,7 +1,6 @@
-# Sentinel Feature Extension Checklist
+# DOCX-Driven Feature Upgrade Checklist
 
-- [x] Add a live-style audit dashboard view with posture summary, anomaly states, vendor filters, and animated telemetry.
-- [x] Add an interactive access-request modal with validation and a success state.
-- [x] Add scroll-aware active section highlighting to the sequence rail.
-- [x] Add responsive styles for the new dashboard and modal.
-- [x] Run type checking, production build, visual verification, and save a new checkpoint.
+- [x] Read and extract the uploaded ToolsforSIHPROJECT.docx requirements.
+- [x] Save a structured requirement summary and feature mapping for the implementation.
+- [x] Implement the highest-value document-driven features in the Sentinel frontend.
+- [x] Validate the new flows, update project documentation, and save a checkpoint.
