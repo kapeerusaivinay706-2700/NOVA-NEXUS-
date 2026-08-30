@@ -7,8 +7,8 @@ import { ThemeProvider } from "./contexts/ThemeContext";
 import Home from "./pages/Home";
 import Dashboard from "./pages/Dashboard";
 import MissionControl from "./pages/MissionControl";
-
 function Router() {
+  // make sure to consider if you need authentication for certain routes
   return <Switch><Route path="/" component={Home} /><Route path="/dashboard" component={Dashboard} /><Route path="/mission-control" component={MissionControl} /><Route path="/404" component={NotFound} /><Route component={NotFound} /></Switch>;
 }
 
