@@ -2,15 +2,16 @@ import { useEffect, useState } from "react";
 import { ArrowDownRight, ArrowRight, Check, ChevronRight, Menu, Play, Radio, ShieldCheck, X } from "lucide-react";
 
 const features = [
-  { no: "01", title: "Control mapping", copy: "Translate frameworks into one visual control language across every cloud and security vendor.", status: "MAPPING / LIVE" },
-  { no: "02", title: "Evidence trails", copy: "Follow each requirement from policy to proof with a traceable, review-ready chain of evidence.", status: "TRACE / READY" },
-  { no: "03", title: "Drift detection", copy: "Catch the quiet changes that turn a passing posture into tomorrow's exception report.", status: "WATCH / 24—7" },
+  { no: "01", title: "Control mapping", copy: "Translate frameworks into one visual control language across every cloud and security vendor.", status: "MAPPING / LIVE", image: "/manus-storage/sentinel-evidence_c6a17fbc.jpg" },
+  { no: "02", title: "Evidence trails", copy: "Follow each requirement from policy to proof with a traceable, review-ready chain of evidence.", status: "TRACE / READY", image: "/manus-storage/sentinel-vendor-orbit_6c7161e9.jpg" },
+  { no: "03", title: "Drift detection", copy: "Catch the quiet changes that turn a passing posture into tomorrow's exception report.", status: "WATCH / 24—7", image: "/manus-storage/sentinel-hero_977d0400.jpg" },
 ];
 
 const vendors = ["AWS / US-EAST-1", "AZURE / WEST-EU", "GCP / EUROPE-WEST", "ORACLE / ASH-1"];
 
 export default function Home() {
   const [activeFeature, setActiveFeature] = useState(0);
+  const [activeVendor, setActiveVendor] = useState(0);
   const [menuOpen, setMenuOpen] = useState(false);
   const [activeSection, setActiveSection] = useState("top");
   const [accessOpen, setAccessOpen] = useState(false);
@@ -65,14 +66,14 @@ export default function Home() {
 
         <section className="section section-dark" id="sequence">
           <div className="section-head"><div><div className="section-index">01 / The sequence</div><h2>From scattered controls<br />to <em>one visible chain.</em></h2></div><p className="section-intro">NOVA NEXUS gives your security team a single frame for the full story: what is protected, what changed, and what needs a closer look.</p></div>
-          <div className="audit-stage"><div className="evidence-image" role="img" aria-label="Abstract evidence chamber with scanning beam" /><div className="feature-list" role="tablist" aria-label="Audit capabilities">{features.map((feature, index) => <button key={feature.no} className={`feature ${activeFeature === index ? "active" : ""}`} onClick={() => setActiveFeature(index)} role="tab" aria-selected={activeFeature === index}><span className="feature-number">{feature.no}</span><span><h3>{feature.title}</h3><p>{feature.copy}</p><span className="feature-status">{activeFeature === index ? <><Radio size={11} /> {feature.status}</> : feature.status}</span></span></button>)}</div></div>
+          <div className="audit-stage"><div className="evidence-image is-switching" key={features[activeFeature].image} style={{ backgroundImage: `url(${features[activeFeature].image})` }} role="img" aria-label={`${features[activeFeature].title} visual`}><span className="evidence-caption">LIVE FRAME / {features[activeFeature].no} · {features[activeFeature].status}</span></div><div className="feature-list" role="tablist" aria-label="Audit capabilities">{features.map((feature, index) => <button key={feature.no} className={`feature ${activeFeature === index ? "active" : ""}`} onClick={() => setActiveFeature(index)} role="tab" aria-selected={activeFeature === index}><span className="feature-number">{feature.no}</span><span><h3>{feature.title}</h3><p>{feature.copy}</p><span className="feature-status">{activeFeature === index ? <><Radio size={11} /> {feature.status}</> : feature.status}</span></span></button>)}</div></div>
         </section>
 
         <section className="section section-blue" id="signals">
           <div className="section-head"><div><div className="section-index">02 / Live signals</div><h2>The quiet layer<br />beneath the <em>noise.</em></h2></div><p className="section-intro">The system watches for drift across the fabric of your infrastructure, then surfaces only the evidence that deserves attention.</p></div>
           <div className="metrics"><div className="metric"><strong>12.4k</strong><span>controls scanned</span></div><div className="metric"><strong>3.8m</strong><span>evidence points</span></div><div className="metric"><strong>07</strong><span>open anomalies</span></div><div className="metric"><strong>0.4s</strong><span>signal latency</span></div></div>
           <div className="rule" />
-          <div className="vendor-frame" id="vendors"><div className="vendor-frame-content"><div className="eyebrow"><span /> THE VENDOR FABRIC</div><h3>One posture.<br />Every cloud.</h3><p>Normalize the way your vendors speak. NOVA NEXUS listens across the stack and returns a single, legible point of view.</p><button className="ghost-btn" onClick={() => scrollTo("contact")}>Explore integrations <ChevronRight size={15} /></button></div><div className="vendor-nodes">{vendors.map((vendor) => <button className="vendor-node" key={vendor}><i />{vendor}</button>)}</div></div>
+          <div className="vendor-frame" id="vendors" style={{ backgroundImage: `linear-gradient(90deg, rgba(3,9,20,.96), rgba(3,9,20,.2)), url(${features[(activeVendor + 1) % features.length].image})` }}><div className="vendor-frame-content"><div className="eyebrow"><span /> THE VENDOR FABRIC</div><h3>One posture.<br />Every cloud.</h3><p>Normalize the way your vendors speak. NOVA NEXUS listens across the stack and returns a single, legible point of view.</p><button className="ghost-btn" onClick={() => scrollTo("contact")}>Explore integrations <ChevronRight size={15} /></button></div><div className="vendor-nodes">{vendors.map((vendor, index) => <button className={`vendor-node ${activeVendor === index ? "active" : ""}`} onClick={() => setActiveVendor(index)} key={vendor}><i />{vendor}</button>)}</div></div>
         </section>
 
         <section className="cta" id="contact"><div className="cta-frame" aria-hidden="true"><span>PROOF CHAIN / READY</span><span>ROOM 03</span></div><div className="section-index">03 / Access protocol</div><h2>Run the sequence.<br /><em>See what holds.</em></h2><p className="hero-copy">Bring your control plane into focus with NOVA NEXUS. We’re opening the first audit rooms to teams ready to see their evidence differently.</p><div className="hero-actions"><button className="primary-btn" onClick={() => { setAccessOpen(true); setSubmitted(false); }}>Request a room <ArrowRight size={16} /></button><span className="eyebrow"><Check size={14} /> No commitment / guided setup</span></div></section>

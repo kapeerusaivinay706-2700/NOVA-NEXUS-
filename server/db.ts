@@ -95,6 +95,7 @@ import { desc } from "drizzle-orm";
 import { createHash } from "node:crypto";
 import { auditReports, auditRuns, devices, evidenceRecords, findings, learnedMappings } from "../drizzle/schema";
 import { storagePut } from "./storage";
+import PDFDocument from "pdfkit";
 
 export async function getWorkspaceData() {
   const db = await getDb();
@@ -144,10 +145,26 @@ export async function verifyEvidence(input: { auditRunId: number; sha256: string
   return { verified: Boolean(record && record.sha256 === input.sha256), record };
 }
 
+export async function renderPdf(text: string): Promise<Buffer> {
+  return new Promise((resolve, reject) => {
+    const document = new PDFDocument({ size: "A4", margin: 48 });
+    const chunks: Buffer[] = [];
+    document.on("data", (chunk: Buffer) => chunks.push(chunk));
+    document.on("end", () => resolve(Buffer.concat(chunks)));
+    document.on("error", reject);
+    document.fontSize(20).fillColor("#0d1b2a").text("NOVA NEXUS", { continued: true }).fontSize(10).fillColor("#607080").text(" / AUDIT REPORT");
+    document.moveDown().fontSize(9).fillColor("#354657").text(`Generated ${new Date().toISOString()}`);
+    document.moveDown().fontSize(10).fillColor("#101820").text(text, { lineGap: 5 });
+    document.end();
+  });
+}
+
 export async function createReport(input: { auditRunId: number; report: string; format: string }) {
   const db = await getDb();
   if (!db) throw new Error("Database is not available");
-  const uploaded = await storagePut(`nova-nexus/reports/audit-${input.auditRunId}.${input.format}`, input.report, "text/plain");
+  const isPdf = input.format === "pdf";
+  const payload = isPdf ? await renderPdf(input.report) : input.report;
+  const uploaded = await storagePut(`nova-nexus/reports/audit-${input.auditRunId}.${isPdf ? "pdf" : input.format}`, payload, isPdf ? "application/pdf" : "text/plain");
   await db.insert(auditReports).values({ auditRunId: input.auditRunId, format: input.format, status: "ready", fileKey: uploaded.key, fileUrl: uploaded.url });
   const rows = await db.select().from(auditReports).orderBy(desc(auditReports.id)).limit(1);
   return rows[0];
