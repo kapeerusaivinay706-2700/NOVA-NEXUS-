@@ -12,3 +12,11 @@
 - [x] Repair PDF-only generation so the final button downloads a valid PDF artifact.
 - [x] Validate interactions, mobile layout, PDF output, and save a new checkpoint.
 - [x] Save a fresh checkpoint after the final interaction-animation and PDF-download fixes.
+
+# Vendor Visual and Evidence Animation Update
+
+- [x] Add recognizable AWS, Azure, Google Cloud, and Oracle logo imagery to vendor options.
+- [x] Replace the fingerprint graphic with a realistic animated evidence-seal treatment.
+- [x] Remove the current closing quote and add a new topic-focused evidence-chain visual section.
+- [x] Validate the refreshed visuals on desktop and mobile, then save a checkpoint.
+- [ ] Save a fresh checkpoint after the vendor-logo, fingerprint-animation, and topic-visual updates.
